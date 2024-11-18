@@ -5,6 +5,7 @@ import { FaEnvelope } from "react-icons/fa"; // Importing email icon from react-
 import { useRouter } from "next/navigation"; // Importing useRouter hook from Next.js for navigation
 import Cookies from "js-cookie"; // Importing js-cookie for handling cookies
 import MessageBox from "@/components/MessageBox"; // Importing a custom message box component for feedback
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function SignUpPage() {
   // State variables for form inputs and message handling
@@ -67,28 +68,30 @@ export default function SignUpPage() {
   return (
     <>
       {/* Message box for displaying feedback messages */}
+      <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50">
       <MessageBox
         message={message}
         type={messageType}
         onClose={() => setMessage("")} // Close message box
       />
+      </div>
       {/* Main container with background image */}
-      <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: 'url("/path/to/forest-background.jpg")' }}>
-        <div className="relative w-96">
+      <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: 'url("forest.jpeg")' }}>
+        <div className="absolute inset-0 bg-black bg-opacity-40 backdrop-blur-sm"></div>
+        <div className="relative max-w-md w-full mx-4"> {/* Adjust width for mobile screens */}
           {/* Back button */}
           <button
             onClick={() => router.back()} // Go back to the previous page
-            className="absolute top-2 -left-24 bg-red-500 rounded-full text-white text-xl flex items-center justify-center w-10 h-10"
-          >
-            &#8592;
+            className="absolute top-2 left-2 sm:-left-6 md:-left-10 lg:-left-24 bg-red-500 rounded-full text-white text-xl flex items-center justify-center w-10 h-10">
+            <FaArrowLeft />
           </button>
-
+  
           {/* Signup form container */}
-          <div className="bg-black bg-opacity-60 p-8 rounded-lg w-96 text-white">
+          <div className="bg-black bg-opacity-60 px-6 py-8 mt-20 lg:mt-0 rounded-lg w-full text-white shadow-lg">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-bold">Signup</h2> {/* Form title */}
             </div>
-
+  
             {/* Signup form */}
             <form onSubmit={handleSignup} className="space-y-4">
               {/* Input for Name */}
@@ -102,7 +105,7 @@ export default function SignUpPage() {
                   required
                 />
               </div>
-
+  
               {/* Input for Mobile Number */}
               <div className="relative">
                 <input
@@ -114,7 +117,7 @@ export default function SignUpPage() {
                   required
                 />
               </div>
-
+  
               {/* Input for Email */}
               <div className="relative">
                 <input
@@ -130,7 +133,7 @@ export default function SignUpPage() {
                   <FaEnvelope className="text-gray-500" />
                 </div>
               </div>
-
+  
               {/* Input for Password */}
               <input
                 type="password"
@@ -148,7 +151,7 @@ export default function SignUpPage() {
                 SignUp
               </button>
             </form>
-
+  
             {/* Alternative sign-in option */}
             <div className="text-center mt-4">
               <p>or</p>

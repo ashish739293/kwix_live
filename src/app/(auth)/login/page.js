@@ -5,6 +5,7 @@ import { FaEnvelope } from "react-icons/fa"; // Importing an envelope icon for t
 import { useRouter } from "next/navigation"; // Hook to handle routing
 import Cookies from "js-cookie"; // Library for managing cookies
 import MessageBox from "@/components/MessageBox"; // Component to display messages to the user
+import { FaArrowLeft,FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginPage() {
   // State variables for form fields and messages
@@ -12,6 +13,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); 
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter(); // Use router for navigation
 
   // Function to handle form submission
@@ -64,24 +66,30 @@ export default function LoginPage() {
     router.push('/register'); // Navigate to the registration page
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
   return (
     <>
+    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50">
       <MessageBox
         message={message} // Display message based on state
         type={messageType} // Display message type based on state
         onClose={() => setMessage("")} // Clear message on close
       />
+      </div>
     
-      <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: 'url("/path/to/forest-background.jpg")' }}>
-        <div className="relative w-96">
+      <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: 'url("forest.jpeg")' }}>
+      <div className="absolute inset-0 bg-black bg-opacity-40 backdrop-blur-sm"></div>
+        <div className="relative max-w-md w-full mx-4">
           <button
             onClick={() => router.back()} // Navigate back on button click
-            className="absolute top-2 -left-24 bg-red-500 rounded-full text-white text-xl flex items-center justify-center w-10 h-10"
-          >
-            &#8592; {/* Left arrow icon */}
+            className="absolute top-2 left-2 sm:-left-6 md:-left-10 lg:-left-24 bg-red-500 rounded-full text-white text-xl flex items-center justify-center w-10 h-10"          >
+            <FaArrowLeft />
           </button>
 
-          <div className="bg-black bg-opacity-60 p-8 rounded-lg w-96 text-white">
+          <div className="bg-black bg-opacity-60 p-8 rounded-lg w-full text-white">
             <h1 className="text-center text-2xl font-bold mb-10">
               <span className="text-red-500">Kwix.</span>
               <span>Live</span>
@@ -105,14 +113,23 @@ export default function LoginPage() {
                   <FaEnvelope className="text-gray-500" /> {/* Envelope icon */}
                 </div>
               </div>
+              <div className="relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} // Update password state on input change
                 className="w-full px-4 py-2 text-black rounded-full"
                 required
               />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+              </div>
               <p className="text-left text-red-400 text-sm cursor-pointer">Forgot Password?</p> {/* Link for password recovery */}
               <button
                 type="submit"

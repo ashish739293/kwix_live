@@ -8,16 +8,12 @@ datasource db {
 }
 
 model users {
-  id                  Int       @id @default(autoincrement())
-  name                String?   @db.Text
-  email               String?   @unique(map: "username") @default("0")
-  username            String?   @default("0")
-  password            String?   @default("0")
-  mobile              String?   @default("0")
-  type                String?   @default("0")
-  status              String?   @default("Active")
-  parent              Int?      @default(0)
-  main_user           Int?      @default(0)
-  created_at          DateTime? @default(now())
-  updated_at          DateTime? @default(now())
+  id         Int       @id @default(autoincrement())
+  name       String?   @db.Text
+  email      String?   @unique(map: "username") @default("0")
+  password   String?   @default("0")
+  mobile     String?   @default("0")
+  type       String?   @default("0")
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
 }

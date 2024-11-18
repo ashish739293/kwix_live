@@ -50,7 +50,7 @@ export default function SignUpPage() {
         setPassword(""); // Reset password input
         setName(""); // Reset name input
         setMobile(""); // Reset mobile input
-        setMessage(userData.message); // Set error message
+        setMessage(userData?.message || userData?.error); // Set error message
         setMessageType("error");
       }
     } catch (error) {

@@ -32,11 +32,15 @@ const Schema = yup.object().shape({
         .matches(/^[0-9]{10}$/, 'Invalid mobile number')
         .required('Mobile is required'),
     
-    password: yup.string()
+        password: yup
+        .string()
         .required('Password is required')
-        .min(6, 'Password must be at least 6 characters')
-        .matches(/^(?![\s@!#$%^&*()_+={}[\]:";'<>?,./\\|`~])[A-Za-z\d@$!%*?&]{6,}$/, 'Password cannot contain only spaces or special characters'),
-});
+        .min(8, 'Password must be at least 8 characters')
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,  
+        "Password must have a letter, a number, and a special character."
+        ),
+    });
 
 export async function POST(request) {
     try {
@@ -59,14 +63,9 @@ export async function POST(request) {
             const user = await prisma.users.create({
                 data: {
                     name,
-                    username: email,
                     mobile,
                     email,
-                    type: 'User',
-                    password: hashedPassword,
-                    parent: 1,
-                    main_user: 1,
-                    status: 'Active'
+                    password: hashedPassword
                 },
             });
 

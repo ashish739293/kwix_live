@@ -1,8 +1,10 @@
+// components/StatCard.js
+
 export default function StatCard({ title, value }) {
    return (
-      <div className="bg-white rounded-lg p-6 shadow flex flex-col items-center">
-         <h2 className="text-lg font-medium">{title}</h2>
-         <p className="text-2xl font-bold mt-2">{value}</p>
+      <div className="stat-card bg-white text-center rounded-lg shadow-lg p-4">
+         <h3 className="title text-lg font-semibold text-gray-700 mb-2">{title}</h3>
+         <p className="value text-3xl font-bold text-red-500">{value}</p>
       </div>
    );
 }

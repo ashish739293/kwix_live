@@ -70,3 +70,60 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+/* Sidebar styling */
+/* Sidebar styling */
+.sidebar {
+  background-color: #222222;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height */
+}
+
+.sidebar a {
+  color: #ffffff;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.sidebar a:hover {
+  background-color: #333333;
+}
+
+.upgrade-button {
+  background-color: #FF4D4F;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+.upgrade-button:hover {
+  background-color: #e04344;
+}
+
+/* StatCard styling */
+.stat-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.stat-card .title {
+  font-weight: bold;
+  color: #222222;
+}
+
+.stat-card .value {
+  color: #FF4D4F;
+  font-size: 2rem;
+  font-weight: bold;
+}

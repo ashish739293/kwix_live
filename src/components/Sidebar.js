@@ -6,8 +6,8 @@ export default function Sidebar() {
          <h2 className="text-2xl font-bold mb-8">Dashboard</h2>
          <ul className="space-y-4">
             <li>
-               <Link href="/dashboard" className="text-gray-300 hover:text-white">
-                  Overview
+               <Link href="/business-card" className="text-gray-300 hover:text-white">
+                  Business Card
                </Link>
             </li>
             <li>

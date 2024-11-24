@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaEnvelope } from "react-icons/fa"; // Importing an envelope icon for the email input
+import { FaEnvelope } from "react-icons/fa"; 
 import { useRouter } from "next/navigation"; // Hook to handle routing
 import Cookies from "js-cookie"; // Library for managing cookies
 import MessageBox from "@/components/MessageBox"; // Component to display messages to the user

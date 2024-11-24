@@ -1,4 +1,12 @@
-import { useState } from 'react';
+"use client";
+import React, { useState } from 'react';
+// import { Card, CardHeader, CardBody, CardFooter, Button, Input, Textarea, Select } from '@/components/ui';
+// import { Card } from './ui/card';
+import { Card,CardHeader, CardContent,CardFooter } from './ui/card';
+import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
+import { Select } from './ui/select';
+import { Button } from './ui/button';
 
 const BusinessCardForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -19,6 +27,7 @@ const BusinessCardForm = ({ onSubmit }) => {
             twitter: '',
         },
         aboutMe: '',
+        themeColor: '#FF4C4C',
     });
 
     const handleChange = (e) => {
@@ -40,180 +49,169 @@ const BusinessCardForm = ({ onSubmit }) => {
         });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onSubmit(formData);
-    };
-
     return (
-        <form onSubmit={handleSubmit} className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Add Your Details</h1>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
-                <input
-                    type="text"
-                    name="fullName"
-                    placeholder="Full Name"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
+        <div className="flex flex-col md:flex-row gap-6">
+            <Card className="flex-1">
+                <CardHeader>
+                    <h1 className="text-2xl font-bold">Add Your Details</h1>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <Input
+                        label="Full Name"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                    />
+                    <Input
+                        label="Mobile Number"
+                        name="mobileNumber"
+                        value={formData.mobileNumber}
+                        onChange={handleChange}
+                    />
+                    <Input
+                        label="Email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                    <Input
+                        label="Job Title"
+                        name="jobTitle"
+                        value={formData.jobTitle}
+                        onChange={handleChange}
+                    />
+                    <Input
+                        label="Company Name"
+                        name="companyName"
+                        value={formData.companyName}
+                        onChange={handleChange}
+                    />
+                    <Textarea
+                        label="Short Bio"
+                        name="shortBio"
+                        value={formData.shortBio}
+                        onChange={handleChange}
+                    />
+                    <div className="flex gap-4">
+                        <Input
+                            label="Profile Photo"
+                            name="profilePhoto"
+                            type="file"
+                            onChange={handleChange}
+                        />
+                        <Input
+                            label="Cover Photo"
+                            name="coverPhoto"
+                            type="file"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="space-y-4">
+                        <Input
+                            label="WhatsApp Number"
+                            name="whatsapp"
+                            value={formData.socialLinks.whatsapp}
+                            onChange={handleSocialLinkChange}
+                        />
+                        <Input
+                            label="Website"
+                            name="website"
+                            value={formData.socialLinks.website}
+                            onChange={handleSocialLinkChange}
+                        />
+                        <Input
+                            label="Facebook Link"
+                            name="facebook"
+                            value={formData.socialLinks.facebook}
+                            onChange={handleSocialLinkChange}
+                        />
+                        <Input
+                            label="Instagram Link"
+                            name="instagram"
+                            value={formData.socialLinks.instagram}
+                            onChange={handleSocialLinkChange}
+                        />
+                        <Input
+                            label="LinkedIn Link"
+                            name="linkedin"
+                            value={formData.socialLinks.linkedin}
+                            onChange={handleSocialLinkChange}
+                        />
+                        <Input
+                            label="Twitter Link"
+                            name="twitter"
+                            value={formData.socialLinks.twitter}
+                            onChange={handleSocialLinkChange}
+                        />
+                    </div>
+                    <Textarea
+                        label="About Me"
+                        name="aboutMe"
+                        value={formData.aboutMe}
+                        onChange={handleChange}
+                    />
+                </CardContent>
+                <CardFooter>
+                    <Button className="bg-[#FF4C4C] hover:bg-[#e23e3e] text-white">
+                        Save &amp; Preview
+                    </Button>
+                </CardFooter>
+            </Card>
+            <div className="flex-1">
+                <Card className="h-full flex flex-col justify-between">
+                    <CardHeader>
+                        <h2 className="text-xl font-bold">Business Card Preview</h2>
+                    </CardHeader>
+                    <CardContent className="flex-1 flex items-center justify-center">
+                        <div
+                            className="bg-[#252525] rounded-2xl p-4 w-72 h-[480px] relative"
+                            style={{ backgroundColor: formData.themeColor }}
+                        >
+                            <img
+                                src="/api/placeholder/320/480"
+                                alt="Cover Photo"
+                                className="rounded-2xl w-full h-40 object-cover"
+                            />
+                            <div className="flex flex-col items-center mt-4">
+                                <img
+                                    src="/api/placeholder/80/80"
+                                    alt="Profile Photo"
+                                    className="rounded-full w-16 h-16 object-cover -mt-8 border-4 border-white"
+                                />
+                                <h3 className="text-white text-xl font-bold mt-2">
+                                    {formData.fullName}
+                                </h3>
+                                <p className="text-white text-sm">{formData.jobTitle}</p>
+                                <p className="text-white text-sm">{formData.companyName}</p>
+                                <p className="text-white text-sm">{formData.mobileNumber}</p>
+                                <p className="text-white text-sm">{formData.email}</p>
+                                <p className="text-white text-sm">{formData.shortBio}</p>
+                            </div>
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <div className="flex items-center justify-between">
+                            <Select
+                                label="Theme Color"
+                                value={formData.themeColor}
+                                onChange={(e) =>
+                                    setFormData({ ...formData, themeColor: e.target.value })
+                                }
+                                options={[
+                                    { value: '#FF4C4C', label: 'Red' },
+                                    { value: '#4CAF50', label: 'Green' },
+                                    { value: '#2196F3', label: 'Blue' },
+                                    { value: '#9b59b6', label: 'Purple' },
+                                ]}
+                            />
+                            <Button className="bg-gray-200 hover:bg-gray-300 text-gray-700">
+                                Remove Branding
+                            </Button>
+                        </div>
+                    </CardFooter>
+                </Card>
             </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Mobile Number</label>
-                <input
-                    type="text"
-                    name="mobileNumber"
-                    placeholder="Mobile Number"
-                    value={formData.mobileNumber}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Job Title</label>
-                <input
-                    type="text"
-                    name="jobTitle"
-                    placeholder="Job Title"
-                    value={formData.jobTitle}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Company Name</label>
-                <input
-                    type="text"
-                    name="companyName"
-                    placeholder="Company Name"
-                    value={formData.companyName}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Short Bio</label>
-                <textarea
-                    name="shortBio"
-                    placeholder="Short Bio"
-                    value={formData.shortBio}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Profile Photo</label>
-                <input
-                    type="file"
-                    name="profilePhoto"
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Cover Photo</label>
-                <input
-                    type="file"
-                    name="coverPhoto"
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">WhatsApp Number</label>
-                <input
-                    type="text"
-                    name="whatsapp"
-                    placeholder="WhatsApp Number"
-                    value={formData.socialLinks.whatsapp}
-                    onChange={handleSocialLinkChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Website</label>
-                <input
-                    type="text"
-                    name="website"
-                    placeholder="Website"
-                    value={formData.socialLinks.website}
-                    onChange={handleSocialLinkChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Facebook Link</label>
-                <input
-                    type="text"
-                    name="facebook"
-                    placeholder="Facebook Link"
-                    value={formData.socialLinks.facebook}
-                    onChange={handleSocialLinkChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Instagram Link</label>
-                <input
-                    type="text"
-                    name="instagram"
-                    placeholder="Instagram Link"
-                    value={formData.socialLinks.instagram}
-                    onChange={handleSocialLinkChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">LinkedIn Link</label>
-                <input
-                    type="text"
-                    name="linkedin"
-                    placeholder="LinkedIn Link"
-                    value={formData.socialLinks.linkedin}
-                    onChange={handleSocialLinkChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Twitter Link</label>
-                <input
-                    type="text"
-                    name="twitter"
-                    placeholder="Twitter Link"
-                    value={formData.socialLinks.twitter}
-                    onChange={handleSocialLinkChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">About Me</label>
-                <textarea
-                    name="aboutMe"
-                    placeholder="About Me"
-                    value={formData.aboutMe}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-                Save & Preview
-            </button>
-        </form>
+        </div>
     );
 };
 
